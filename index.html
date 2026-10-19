@@ -1,0 +1,331 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Purrfect Cafe 🎀</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;padding:18px 12px 30px;
+ font-family:"Trebuchet MS",Arial,sans-serif;
+ color:#754660;
+ background:linear-gradient(140deg,#ffe3ef,#eee3ff,#e0f8ff);
+ min-height:100vh;
+}
+button{font:inherit;cursor:pointer;touch-action:manipulation}
+button:active{transform:scale(.96)}
+.app{max-width:470px;margin:auto}
+header{text-align:center;padding:8px 0 15px}
+.logo{font-size:43px;filter:drop-shadow(0 5px 5px #d68ab966)}
+h1{font-size:29px;margin:4px 0;color:#b94f8a}
+header p{font-size:13px;color:#9d7294;margin:7px}
+.pill{
+ display:inline-block;background:#fff8fc;border:1px solid #f8c5df;
+ padding:7px 13px;border-radius:30px;font-size:12px;
+}
+.stats{display:flex;gap:8px;margin-bottom:12px}
+.stat{
+ flex:1;text-align:center;padding:10px 3px;
+ background:#ffffffc9;border:1px solid white;
+ border-radius:16px;box-shadow:0 4px 12px #d69ac522;
+ font-size:11px;color:#a16d8e;
+}
+.stat b{display:block;font-size:20px;color:#b64d8c;margin-top:4px}
+.cafe{
+ position:relative;overflow:hidden;text-align:center;
+ border:3px solid #fff;border-radius:25px;
+ background:linear-gradient(#fff0f7 0%,#fff8ed 70%,#d9b1a2 70%);
+ min-height:238px;padding:16px 10px 0;
+ box-shadow:0 9px 22px #d79bc344;
+}
+.cafe:before{
+ content:"✦  ·  ✧  ·  ✦  ·  ✧  ·  ✦";
+ position:absolute;top:10px;left:0;right:0;
+ color:#e5a4cb;font-size:15px;
+}
+.cafeTop{font-size:12px;letter-spacing:2px;color:#c37aa4;margin-top:14px}
+.cat{font-size:83px;line-height:1.35;filter:drop-shadow(0 6px 2px #d7a7bd55);animation:bob 1.5s ease-in-out infinite alternate}
+@keyframes bob{to{transform:translateY(-5px)}}
+.speech{
+ display:inline-block;position:relative;
+ max-width:95%;background:white;border:2px solid #f4c6df;
+ padding:9px 13px;border-radius:15px;font-size:13px;
+ box-shadow:0 3px 0 #f4c6df;
+}
+.floor{height:25px}
+.panel{
+ background:#ffffffd9;border:2px solid #fff;
+ border-radius:22px;padding:17px;margin-top:13px;
+ box-shadow:0 6px 18px #d69ac522;
+}
+.panel h2{font-size:17px;margin:0 0 6px}
+.muted{font-size:12px;line-height:1.5;color:#a17e99;margin:5px 0 13px}
+.order{
+ text-align:center;background:#fff1f8;border:1px dashed #efb6d4;
+ border-radius:15px;padding:12px;margin:12px 0;
+}
+.order strong{display:block;font-size:23px;margin-top:4px}
+.foods{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.food{
+ background:linear-gradient(150deg,#fff,#fff0f8);
+ border:2px solid #f5c8df;border-radius:16px;
+ padding:13px 3px 11px;color:#8d5277;
+ box-shadow:0 4px 0 #eec0d9;
+}
+.food .emoji{display:block;font-size:34px;margin-bottom:7px}
+.food small{font-size:11px}
+.food:active{box-shadow:none;transform:translateY(3px)}
+.notice{
+ min-height:43px;margin-top:12px;padding:12px 8px;
+ background:#fff7fc;border-radius:12px;text-align:center;
+ font-size:13px;color:#ac5d8e;
+}
+.bottom{display:flex;gap:8px;margin-top:12px}
+.action{
+ flex:1;border:0;border-radius:14px;padding:13px 5px;
+ color:#fff;background:linear-gradient(120deg,#eb8dbd,#b69af5);
+ box-shadow:0 4px 0 #cc83b9;font-weight:bold;font-size:12px;
+}
+.action:disabled{opacity:.5}
+.upgrade{
+ display:flex;justify-content:space-between;align-items:center;
+ gap:10px;padding:11px 0;border-bottom:1px solid #f5dcea;
+ font-size:13px;
+}
+.upgrade:last-child{border:0}
+.buy{
+ border:0;border-radius:12px;padding:9px 11px;
+ color:#a44980;background:#ffe3f1;font-weight:bold;
+ white-space:nowrap;
+}
+.buy:disabled{opacity:.45}
+.footer{text-align:center;font-size:11px;color:#b18ba7;padding:18px 0}
+#float{
+ position:fixed;top:30%;left:0;right:0;text-align:center;
+ font-size:28px;pointer-events:none;opacity:0;
+}
+#float.pop{animation:pop .7s ease}
+@keyframes pop{
+ 0%{opacity:0;transform:translateY(15px) scale(.6)}
+ 30%{opacity:1;transform:translateY(-10px) scale(1.1)}
+ 100%{opacity:0;transform:translateY(-65px) scale(1)}
+}
+@media(max-width:350px){
+ h1{font-size:25px}.cat{font-size:68px}
+ .panel{padding:12px}.food .emoji{font-size:28px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+ <div class="logo">🎀🐈☕</div>
+ <h1>Purrfect Café</h1>
+ <p>tiny paws, sweet treats & happy hearts ♡</p>
+ <span class="pill">✿ COZY CAT GAME ✿</span>
+</header>
+
+<div class="stats">
+ <div class="stat">🪙 COINS<b id="coins">0</b></div>
+ <div class="stat">⭐ SCORE<b id="score">0</b></div>
+ <div class="stat">💗 LIVES<b id="lives">❤️❤️❤️</b></div>
+</div>
+
+<section class="cafe">
+ <div class="cafeTop">♡ THE LITTLE CAT CAFÉ ♡</div>
+ <div class="cat" id="cat">🐱</div>
+ <div class="speech" id="speech">Meow! Can I have a treat? ♡</div>
+ <div class="floor"></div>
+</section>
+
+<section class="panel">
+ <h2>📝 Customer's Order</h2>
+ <p class="muted">Serve the treat this little kitty wants!</p>
+ <div class="order">
+  <span id="customer">Strawberry Cat</span>
+  <strong id="wanted">🍰 Cake</strong>
+ </div>
+ <div class="foods">
+  <button class="food" onclick="serve('🍰')">
+   <span class="emoji">🍰</span><small>Cake</small>
+  </button>
+  <button class="food" onclick="serve('🧋')">
+   <span class="emoji">🧋</span><small>Boba</small>
+  </button>
+  <button class="food" onclick="serve('🍓')">
+   <span class="emoji">🍓</span><small>Berry</small>
+  </button>
+ </div>
+ <div class="notice" id="notice" aria-live="polite">
+  Welcome, little barista! Pick the correct treat 🌷
+ </div>
+ <div class="bottom">
+  <button class="action" id="start" onclick="startGame()">▶ START SHIFT</button>
+  <button class="action" onclick="resetGame()">↻ RESTART</button>
+ </div>
+ <p class="muted" style="margin-top:12px;margin-bottom:0">
+  ⏱️ 45 seconds · Correct order = +10 coins · Wrong order costs a heart
+ </p>
+</section>
+
+<section class="panel">
+ <h2>🌸 Decorate Your Café</h2>
+ <p class="muted">Earn coins by serving cats, then buy cozy upgrades!</p>
+ <div class="upgrade">
+  <span>🌷 Flower Pot <br><small>Make it extra pretty</small></span>
+  <button class="buy" id="buyFlower" onclick="buy('flower',30)">🪙 30</button>
+ </div>
+ <div class="upgrade">
+  <span>🧸 Teddy Plush <br><small>More cozy vibes</small></span>
+  <button class="buy" id="buyTeddy" onclick="buy('teddy',50)">🪙 50</button>
+ </div>
+ <div class="upgrade">
+  <span>✨ Star Lights <br><small>Magical café glow</small></span>
+  <button class="buy" id="buyLights" onclick="buy('lights',80)">🪙 80</button>
+ </div>
+ <div id="decor" class="notice">Your cozy café awaits! ♡</div>
+</section>
+
+<div class="footer">made with love & little paws ♡</div>
+</div>
+<div id="float">💖 +10</div>
+
+<script>
+let coins=0,score=0,lives=3,time=45,playing=false;
+let timer=null,owned={flower:false,teddy:false,lights:false};
+let streak=0,round=0;
+const treats=[
+ {emoji:"🍰",name:"Cake"},
+ {emoji:"🧋",name:"Boba"},
+ {emoji:"🍓",name:"Berry"}
+];
+const cats=[
+ {emoji:"🐱",name:"Strawberry Cat"},
+ {emoji:"🐈",name:"Sleepy Kitty"},
+ {emoji:"😺",name:"Happy Mochi"},
+ {emoji:"😻",name:"Lovebug"},
+ {emoji:"🐱",name:"Peachy Paws"},
+ {emoji:"😽",name:"Miss Whiskers"}
+];
+let wantedIndex=0;
+
+function nextOrder(){
+ round++;
+ const cat=cats[Math.floor(Math.random()*cats.length)];
+ wantedIndex=Math.floor(Math.random()*treats.length);
+ document.getElementById("cat").textContent=cat.emoji;
+ document.getElementById("customer").textContent=cat.name;
+ document.getElementById("wanted").textContent=
+ treats[wantedIndex].emoji+" "+treats[wantedIndex].name;
+ document.getElementById("speech").textContent=
+ ["Please, please? ♡","Meow meow!","My favourite!","Pawsitively hungry!"][Math.floor(Math.random()*4)];
+}
+
+function update(){
+ document.getElementById("coins").textContent=coins;
+ document.getElementById("score").textContent=score;
+ document.getElementById("lives").textContent="❤️".repeat(lives)+"🖤".repeat(3-lives);
+ document.getElementById("buyFlower").disabled=owned.flower||coins<30;
+ document.getElementById("buyTeddy").disabled=owned.teddy||coins<50;
+ document.getElementById("buyLights").disabled=owned.lights||coins<80;
+ document.getElementById("buyFlower").textContent=owned.flower?"✓ Bought":"🪙 30";
+ document.getElementById("buyTeddy").textContent=owned.teddy?"✓ Bought":"🪙 50";
+ document.getElementById("buyLights").textContent=owned.lights?"✓ Bought":"🪙 80";
+}
+
+function popup(text){
+ const f=document.getElementById("float");
+ f.textContent=text;
+ f.classList.remove("pop");
+ void f.offsetWidth;
+ f.classList.add("pop");
+}
+
+function serve(emoji){
+ if(!playing){
+  document.getElementById("notice").textContent="Tap START SHIFT first, little barista! 🎀";
+  return;
+ }
+ if(emoji===treats[wantedIndex].emoji){
+  streak++;
+  const reward=10+(streak>=3?5:0);
+  coins+=reward;score+=10;
+  document.getElementById("cat").textContent="😻";
+  document.getElementById("notice").textContent=
+   streak>=3?"PURRFECT COMBO! +"+reward+" coins ✨":"Yummy! +"+reward+" coins 💗";
+  document.getElementById("speech").textContent=
+   streak>=3?"MEOWGICAL!!":"Mmm, delicious!";
+  popup("💖 +"+reward);
+  update();
+  setTimeout(()=>{if(playing)nextOrder()},350);
+ }else{
+  lives--;streak=0;
+  document.getElementById("cat").textContent="🙀";
+  document.getElementById("notice").textContent=
+   "Oopsie! Kitty wanted "+treats[wantedIndex].name+" 💕";
+  update();
+  if(lives<=0)endGame();
+ }
+}
+
+function startGame(){
+ if(playing)return;
+ coins=0;score=0;lives=3;time=45;streak=0;round=0;
+ document.getElementById("start").disabled=true;
+ document.getElementById("start").textContent="☕ SHIFT IN PROGRESS";
+ document.getElementById("notice").textContent="Let's make these kitties happy! 🌸";
+ playing=true;update();nextOrder();
+ clearInterval(timer);
+ timer=setInterval(()=>{
+  time--;
+  document.getElementById("start").textContent="⏱️ "+time+" SECONDS LEFT";
+  if(time<=0||lives<=0)endGame();
+ },1000);
+}
+
+function endGame(){
+ if(!playing)return;
+ playing=false;clearInterval(timer);
+ document.getElementById("start").disabled=false;
+ document.getElementById("start").textContent="▶ PLAY AGAIN";
+ document.getElementById("notice").textContent=
+ "☕ Shift over! Score: "+score+" · Coins: "+coins+
+ " · Great work, barista! 🎀";
+ document.getElementById("speech").textContent="Thank you! Come again! ♡";
+ document.getElementById("cat").textContent="😽";
+}
+
+function resetGame(){
+ playing=false;clearInterval(timer);
+ coins=0;score=0;lives=3;time=45;streak=0;
+ document.getElementById("start").disabled=false;
+ document.getElementById("start").textContent="▶ START SHIFT";
+ document.getElementById("notice").textContent="Welcome back! Ready for a new shift? 🌷";
+ document.getElementById("cat").textContent="🐱";
+ document.getElementById("speech").textContent="Meow! Can I have a treat? ♡";
+ document.getElementById("customer").textContent="Strawberry Cat";
+ document.getElementById("wanted").textContent="🍰 Cake";
+ update();
+}
+
+function buy(item,cost){
+ if(!playing&&coins===0){
+  document.getElementById("decor").textContent="Play a shift and earn coins first! 🌷";
+  return;
+ }
+ if(owned[item]||coins<cost)return;
+ coins-=cost;owned[item]=true;
+ const names={flower:"🌷 Flower Pot",teddy:"🧸 Teddy Plush",lights:"✨ Star Lights"};
+ document.getElementById("decor").textContent=names[item]+" added to your café! 💖";
+ const cafe=document.querySelector(".cafe");
+ if(item==="flower")cafe.style.background="linear-gradient(#ffe8f4,#fff8ed 70%,#d9b1a2 70%)";
+ if(item==="teddy")document.querySelector(".logo").textContent="🧸🎀☕";
+ if(item==="lights")cafe.style.boxShadow="0 0 28px #e5a4ff,0 9px 22px #d79bc344";
+ update();
+}
+update();
+</script>
+</body>
+</html>
